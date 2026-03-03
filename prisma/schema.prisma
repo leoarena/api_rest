@@ -5,10 +5,23 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model Empreendimento {
+  id          String   @id @default(uuid())
+  nome        String
+  responsavel String
+  municipio   String
+  segmento    String
+  contato     String
+  status      String   @default("ativo")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("empreendimentos")
 }
