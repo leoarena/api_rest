@@ -1,11 +1,12 @@
 import express from "express";
-const app = express();
-const port = 3000;
+import { router } from "./routes.js";
 
-app.get("/", (request, response) => {
-  response.send("Resposta mock");
-});
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(express.json());
+app.use("/empreendimentos", router);
 
 app.listen(port, () => {
-  console.log(`Aplicação escutando na porta ${port}`);
+  console.log(`API rodando em http://localhost:${port}`);
 });
