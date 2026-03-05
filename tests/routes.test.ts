@@ -85,3 +85,34 @@ describe("POST /empreendimentos", () => {
     expect(response.body).toHaveProperty("error");
   });
 });
+
+describe("PUT /empreendimentos/:id", () => {
+  it("deve atualizar um empreendimento", async () => {
+    const novo = await request(app).post("/empreendimentos").send({
+      nome: "Antes",
+      responsavel: "Resp Antes",
+      municipio: "Florianópolis",
+      segmento: "Tecnologia",
+      contato: "antes@teste.com",
+      status: "ativo",
+    });
+
+    const atualizado = {
+      nome: "Depois",
+      responsavel: "Resp Depois",
+      municipio: "São Paulo",
+      segmento: "Varejo",
+      contato: "depois@teste.com",
+      status: "inativo",
+    };
+
+    const response = await request(app)
+      .put(`/empreendimentos/${novo.body.id}`)
+      .send(atualizado);
+
+    expect(response.status).toBe(200);
+    expect(response.body.nome).toBe("Depois");
+    expect(response.body.responsavel).toBe("Resp Depois");
+    expect(response.body.municipio).toBe("São Paulo");
+  });
+});

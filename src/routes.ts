@@ -43,4 +43,17 @@ router.post("/", async (request, response) => {
   }
 });
 
+router.put("/:id", async (request, response) => {
+  const { id } = request.params;
+  const { nome, responsavel, municipio, segmento, contato, status } =
+    request.body;
+
+  const empreendimento = await prisma.empreendimento.update({
+    where: { id },
+    data: { nome, responsavel, municipio, segmento, contato, status },
+  });
+
+  response.json(empreendimento);
+});
+
 export { router };
