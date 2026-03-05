@@ -116,3 +116,26 @@ describe("PUT /empreendimentos/:id", () => {
     expect(response.body.municipio).toBe("São Paulo");
   });
 });
+
+describe("DELETE /empreendimentos/:id", () => {
+  it("deve deletar um empreendimento", async () => {
+    const novo = await request(app).post("/empreendimentos").send({
+      nome: "Para Deletar",
+      responsavel: "Responsavel",
+      municipio: "Florianópolis",
+      segmento: "Tecnologia",
+      contato: "email@teste.com",
+      status: "ativo",
+    });
+
+    const response = await request(app).delete(
+      `/empreendimentos/${novo.body.id}`,
+    );
+    expect(response.status).toBe(204);
+
+    const verificar = await request(app).get(
+      `/empreendimentos/${novo.body.id}`,
+    );
+    expect(verificar.status).toBe(404);
+  });
+});
