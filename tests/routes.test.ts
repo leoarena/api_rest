@@ -15,6 +15,31 @@ describe("GET /empreendimentos", () => {
   });
 });
 
+describe("GET /empreendimentos/:id", () => {
+  it("deve retornar um empreendimento", async () => {
+    const empreendimento = await request(app).post("/empreendimentos").send({
+      nome: "Teste GET",
+      responsavel: "Responsavel",
+      municipio: "Florianópolis",
+      segmento: "Tecnologia",
+      contato: "email@teste.com",
+      status: "ativo",
+    });
+
+    const response = await request(app).get(
+      `/empreendimentos/${empreendimento.body.id}`,
+    );
+    expect(response.status).toBe(200);
+    expect(response.body.id).toBe(empreendimento.body.id);
+    expect(response.body.nome).toBe("Teste GET");
+  });
+
+  it("deve retornar 404 para ID inexistente", async () => {
+    const response = await request(app).get("/empreendimentos/id-invalido");
+    expect(response.status).toBe(404);
+  });
+});
+
 describe("POST /empreendimentos", () => {
   it("deve retornar o empreendimento", async () => {
     const novoEmpreendimento = {
