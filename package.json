@@ -6,7 +6,10 @@
     "dev": "tsx watch src/index.ts",
     "test": "vitest",
     "build": "tsc",
-    "start": "node dist/src/index.js"
+    "start": "node dist/src/index.js",
+    "migrate": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "db:reset": "prisma migrate reset --force"
   },
   "keywords": [],
   "author": "",
