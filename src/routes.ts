@@ -23,7 +23,7 @@ router.get("/:id", async (request, response) => {
   response.json(empreendimento);
 });
 
-router.post("/", async (request, response) => {
+router.post("/", async (request, response, next) => {
   try {
     const { nome, responsavel, municipio, segmento, contato, status } =
       request.body;
@@ -33,33 +33,36 @@ router.post("/", async (request, response) => {
     });
 
     response.status(201).json(empreendimento);
-  } catch (error: any) {
-    if (error.code === "P2002") {
-      return response
-        .status(409)
-        .json({ error: "Já existe um empreendimento com este nome" });
-    }
-    response.status(500).json({ error: "Erro ao cadastrar empreendimento" });
+  } catch (error) {
+    next(error);
   }
 });
 
-router.put("/:id", async (request, response) => {
-  const { id } = request.params;
-  const { nome, responsavel, municipio, segmento, contato, status } =
-    request.body;
+router.put("/:id", async (request, response, next) => {
+  try {
+    const { id } = request.params;
+    const { nome, responsavel, municipio, segmento, contato, status } =
+      request.body;
 
-  const empreendimento = await prisma.empreendimento.update({
-    where: { id },
-    data: { nome, responsavel, municipio, segmento, contato, status },
-  });
+    const empreendimento = await prisma.empreendimento.update({
+      where: { id },
+      data: { nome, responsavel, municipio, segmento, contato, status },
+    });
 
-  response.json(empreendimento);
+    response.json(empreendimento);
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.delete("/:id", async (request, response) => {
-  const { id } = request.params;
-  await prisma.empreendimento.delete({ where: { id } });
-  response.status(204).send();
+router.delete("/:id", async (request, response, next) => {
+  try {
+    const { id } = request.params;
+    await prisma.empreendimento.delete({ where: { id } });
+    response.status(204).send();
+  } catch (error) {
+    next(error);
+  }
 });
 
 export { router };
