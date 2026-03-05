@@ -14,7 +14,7 @@ datasource db {
 
 model Empreendimento {
   id          String   @id @default(uuid())
-  nome        String
+  nome        String   @unique
   responsavel String
   municipio   String
   segmento    String

@@ -39,4 +39,24 @@ describe("POST /empreendimentos", () => {
     expect(response.body.contato).toBe(novoEmpreendimento.contato);
     expect(response.body.status).toBe(novoEmpreendimento.status);
   });
+
+  it("deve rejeitar nome duplicado", async () => {
+    const empreendimento = {
+      nome: "Empreendimento duplicado",
+      responsavel: "Responsavel",
+      municipio: "Florianópolis",
+      segmento: "Tecnologia",
+      contato: "email@teste.com",
+      status: "ativo",
+    };
+
+    await request(app).post("/empreendimentos").send(empreendimento);
+
+    const response = await request(app)
+      .post("/empreendimentos")
+      .send(empreendimento);
+
+    expect(response.status).toBe(409);
+    expect(response.body).toHaveProperty("error");
+  });
 });
