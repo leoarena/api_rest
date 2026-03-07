@@ -3,26 +3,6 @@ import { prisma } from "./db.js";
 
 const router = Router();
 
-router.get("/", async (request, response) => {
-  const empreendimentos = await prisma.empreendimento.findMany();
-  response.json(empreendimentos);
-});
-
-router.get("/:id", async (request, response) => {
-  const { id } = request.params;
-  const empreendimento = await prisma.empreendimento.findUnique({
-    where: { id },
-  });
-
-  if (!empreendimento) {
-    return response
-      .status(404)
-      .json({ error: "Empreendimento não encontrado" });
-  }
-
-  response.json(empreendimento);
-});
-
 router.post("/", async (request, response, next) => {
   try {
     const { nome, responsavel, municipio, segmento, contato, status } =

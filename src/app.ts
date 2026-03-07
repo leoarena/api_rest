@@ -1,10 +1,12 @@
 import express, { Request, Response } from "express";
 import { router } from "./routes.js";
+import empreendimentoRouter from "./modules/empreendimento/empreendimento.routes.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
 const app = express();
 
 app.use(express.json());
+app.use("/empreendimentos", empreendimentoRouter);
 app.use("/empreendimentos", router);
 
 app.use((req: Request, res: Response) => {
