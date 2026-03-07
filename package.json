@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "test": "vitest",
+    "dev": "npm run db:start && npm run migrate && tsx watch src/server.ts",
+    "test": "npm run db:start && vitest",
     "build": "tsc",
     "start": "node dist/src/index.js",
     "migrate": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",
+    "db:start": "docker compose up -d",
+    "db:stop": "docker compose stop",
+    "db:down": "docker compose down",
     "db:reset": "prisma migrate reset --force"
   },
   "keywords": [],
