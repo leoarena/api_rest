@@ -1,13 +1,6 @@
-import express from "express";
 import request from "supertest";
-import { router } from "../src/routes.js";
 import { describe, it, expect } from "vitest";
-import { errorHandler } from "../src/middlewares/errorHandler.js";
-
-const app = express();
-app.use(express.json());
-app.use("/empreendimentos", router);
-app.use(errorHandler);
+import app from "../src/app.js";
 
 describe("GET /empreendimentos", () => {
   it("deve retornar lista de empreendimentos", async () => {
