@@ -54,3 +54,18 @@ export async function update(req: Request, res: Response, next: NextFunction) {
     next(error);
   }
 }
+
+export async function remove(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { id } = req.params;
+
+    if (Array.isArray(id)) {
+      return res.status(400).json({ error: "ID inválido" });
+    }
+
+    await service.remove(id);
+    res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
+}

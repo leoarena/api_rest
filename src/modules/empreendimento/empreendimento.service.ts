@@ -20,3 +20,7 @@ export function update(id: string, data: any) {
     data,
   });
 }
+
+export function remove(id: string) {
+  return prisma.empreendimento.delete({ where: { id } });
+}
