@@ -13,3 +13,10 @@ export function getById(id: string) {
 export function create(data: any) {
   return prisma.empreendimento.create({ data });
 }
+
+export function update(id: string, data: any) {
+  return prisma.empreendimento.update({
+    where: { id },
+    data,
+  });
+}
