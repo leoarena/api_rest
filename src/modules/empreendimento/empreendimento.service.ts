@@ -9,3 +9,7 @@ export function getById(id: string) {
     where: { id },
   });
 }
+
+export function create(data: any) {
+  return prisma.empreendimento.create({ data });
+}

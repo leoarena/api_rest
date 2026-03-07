@@ -29,3 +29,12 @@ export async function getById(req: Request, res: Response, next: NextFunction) {
     next(error);
   }
 }
+
+export async function create(req: Request, res: Response, next: NextFunction) {
+  try {
+    const empreendimento = await service.create(req.body);
+    res.status(201).json(empreendimento);
+  } catch (error) {
+    next(error);
+  }
+}

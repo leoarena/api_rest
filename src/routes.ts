@@ -3,21 +3,6 @@ import { prisma } from "./db.js";
 
 const router = Router();
 
-router.post("/", async (request, response, next) => {
-  try {
-    const { nome, responsavel, municipio, segmento, contato, status } =
-      request.body;
-
-    const empreendimento = await prisma.empreendimento.create({
-      data: { nome, responsavel, municipio, segmento, contato, status },
-    });
-
-    response.status(201).json(empreendimento);
-  } catch (error) {
-    next(error);
-  }
-});
-
 router.put("/:id", async (request, response, next) => {
   try {
     const { id } = request.params;
