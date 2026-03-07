@@ -13,17 +13,10 @@ export async function list(req: Request, res: Response, next: NextFunction) {
 export async function getById(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
-
-    if (Array.isArray(id)) {
-      return res.status(400).json({ error: "ID inválido" });
-    }
-
     const empreendimento = await service.getById(id);
-
     if (!empreendimento) {
       return res.status(404).json({ error: "Empreendimento não encontrado" });
     }
-
     res.json(empreendimento);
   } catch (error) {
     next(error);
@@ -42,13 +35,7 @@ export async function create(req: Request, res: Response, next: NextFunction) {
 export async function update(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
-
-    if (Array.isArray(id)) {
-      return res.status(400).json({ error: "ID inválido" });
-    }
-
     const empreendimento = await service.update(id, req.body);
-
     res.json(empreendimento);
   } catch (error) {
     next(error);
@@ -58,11 +45,6 @@ export async function update(req: Request, res: Response, next: NextFunction) {
 export async function remove(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
-
-    if (Array.isArray(id)) {
-      return res.status(400).json({ error: "ID inválido" });
-    }
-
     await service.remove(id);
     res.status(204).send();
   } catch (error) {
