@@ -9,7 +9,12 @@ const router = Router();
 router.get("/", controller.list);
 router.get("/:id", validateIdParam, controller.getById);
 router.post("/", validateBody(EmpreendimentoCreateSchema), controller.create);
-router.put("/:id", validateIdParam, controller.update);
+router.put(
+  "/:id",
+  validateBody(EmpreendimentoCreateSchema),
+  validateIdParam,
+  controller.update,
+);
 router.delete("/:id", validateIdParam, controller.remove);
 
 export default router;

@@ -136,7 +136,7 @@ describe("PUT /empreendimentos/:id", () => {
       nome: "Depois",
       responsavel: "Resp Depois",
       municipio: "São Paulo",
-      segmento: "Varejo",
+      segmento: "Comércio",
       contato: "depois@teste.com",
       status: "inativo",
     };
