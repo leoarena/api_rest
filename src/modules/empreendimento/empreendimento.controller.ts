@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as service from "./empreendimento.service.js";
 import { Empreendimento, Prisma } from "@prisma/client";
+import type { EmpreendimentoCreateInput } from "./empreendimento.schema.js";
 
 type IdParam = { id: string };
 
@@ -31,7 +32,7 @@ export async function getById(
 }
 
 export async function create(
-  req: Request<{}, {}, Prisma.EmpreendimentoCreateInput>,
+  req: Request<{}, {}, EmpreendimentoCreateInput>,
   res: Response,
   next: NextFunction,
 ) {

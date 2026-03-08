@@ -79,6 +79,46 @@ describe("POST /empreendimentos", () => {
     expect(response.status).toBe(409);
     expect(response.body).toHaveProperty("error");
   });
+
+  it("deve rejeitar segmento inesperado", async () => {
+    const empreendimento = {
+      nome: "Teste segmento",
+      responsavel: "Responsavel",
+      municipio: "Florianópolis",
+      segmento: "Outro",
+      contato: "email@teste.com",
+      status: "ativo",
+    };
+
+    const response = await request(app)
+      .post("/empreendimentos")
+      .send(empreendimento);
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("error", "Dados inválidos");
+    expect(response.body).toHaveProperty("detalhes");
+    expect(response.body.detalhes[0]).toHaveProperty("campo", "segmento");
+  });
+
+  it("deve rejeitar status inesperado", async () => {
+    const empreendimento = {
+      nome: "Teste segmento",
+      responsavel: "Responsavel",
+      municipio: "Florianópolis",
+      segmento: "Tecnologia",
+      contato: "email@teste.com",
+      status: "outro",
+    };
+
+    const response = await request(app)
+      .post("/empreendimentos")
+      .send(empreendimento);
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("error", "Dados inválidos");
+    expect(response.body).toHaveProperty("detalhes");
+    expect(response.body.detalhes[0]).toHaveProperty("campo", "status");
+  });
 });
 
 describe("PUT /empreendimentos/:id", () => {
