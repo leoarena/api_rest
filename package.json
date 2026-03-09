@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "npm run db:start && npm run migrate && tsx watch src/server.ts",
+    "dev": "npm run db:start && npm run migrate && npx tsc --noEmit && tsx watch src/server.ts",
     "test": "npm run db:start && vitest",
     "build": "tsc",
     "start": "node dist/server.js",
