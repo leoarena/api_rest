@@ -1,9 +1,11 @@
 import express, { Request, Response } from "express";
 import empreendimentoRouter from "./modules/empreendimento/empreendimento.routes.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
+import cors from "cors";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use("/empreendimentos", empreendimentoRouter);
 
