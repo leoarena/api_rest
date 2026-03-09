@@ -6,7 +6,7 @@
     "dev": "npm run db:start && npm run migrate && tsx watch src/server.ts",
     "test": "npm run db:start && vitest",
     "build": "tsc",
-    "start": "node dist/src/index.js",
+    "start": "node dist/server.js",
     "migrate": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",
     "db:start": "docker compose up -d",
